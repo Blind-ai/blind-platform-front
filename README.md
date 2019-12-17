@@ -1,8 +1,8 @@
 ![](.github/banner.png)
 
-# Netive Platform frontend
+# Blind Platform frontend
 
-This repository contains the source code of Netive platform frontend
+This repository contains the source code of Blind platform frontend
 
 ## Contributing
 
