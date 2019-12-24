@@ -1,0 +1,19 @@
+#account-text {
+    font-family: Avenir-Light;
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+}
+
+#account-text img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-left: 20px;
+
+}
