@@ -1,5 +1,6 @@
 import React from "react";
 import './PatientsSearchResults.css'
+import {withRouter} from 'react-router-dom';
 
 class PatientsSearchResults extends React.Component {
 
@@ -14,7 +15,8 @@ class PatientsSearchResults extends React.Component {
                 { id: 3, name: 'Flavian Gontier', age: 16, lastExam: '20-12-2019' },
                 { id: 4, name: 'Fabien Labarbe', age: 25, lastExam: '20-12-2019' },
                 { id: 5, name: 'Yoann Kersulec', age: 25, lastExam: '20-12-2019' },
-                { id: 6, name: 'Hadrien Mortier', age: 25, lastExam: '20-12-2019' }
+                { id: 6, name: 'Hadrien Mortier', age: 25, lastExam: '20-12-2019' },
+                { id: 345, name: 'John Frusciante', age: 25, lastExam: '20-12-2019' },
             ]
         }
     }
@@ -36,24 +38,33 @@ class PatientsSearchResults extends React.Component {
 
             const filtered = this.state.patients.filter((patient) => {
                 return (patient.name.toLowerCase().includes(filter.toLowerCase()))
-            })
+            });
 
             console.log(filtered)
             console.log(this.state.patients)
 
-            return filtered.map((student, index) => {
-                const {id, name, lastExam} = student
+            return filtered.map((patient, index) => {
+                const {id, name, lastExam} = patient;
                 return (
-                    <tr id={index % 2 !== 0 ? null : 'greyed'} key={id}>
-                        <td id="name-cell">{name}</td>
-                        <td>{lastExam}</td>
-                        <td>{id}</td>
+                    <tr id={index % 2 !== 0 ? 'row-normal' : 'row-greyed'} key={id} onClick={() =>
+                    {
+                        this.props.history.push({
+                            pathname: '/patient/' + id,
+                            state: {
+                                name : name,
+                            }
+                        });
+                    }}>
+
+                            <td id="name-cell">{name}</td>
+                            <td>{lastExam}</td>
+                            <td>{id}</td>
                     </tr>
+
                 )
             })
         }
     }
-
 
     render() {
         return (
@@ -74,4 +85,4 @@ class PatientsSearchResults extends React.Component {
     }
 }
 
-export default PatientsSearchResults
+export default withRouter(PatientsSearchResults);

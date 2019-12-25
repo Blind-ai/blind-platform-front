@@ -8,7 +8,9 @@ import {
 import './Menu.css'
 import logo from '../../assets/blind-blue.svg'
 import Account from "../User/Account";
-import SearchPatients from "../../Views/Search/SearchPatients";
+import SearchPatients from "../../Views/Patients/SearchPatients";
+import SearchExams from "../../Views/Exams/SearchExams";
+import PatientPage from "../../Views/Patients/PatientPage";
 
 const routes = [
     {
@@ -19,7 +21,16 @@ const routes = [
     {
         path: "/patients",
         main: () => <SearchPatients />
+    },
+    {
+        path: "/exams",
+        main: () => <SearchExams />
+    },
+    {
+        path: "/patient/:id",
+        main: () => <PatientPage/>
     }
+
 ];
 
 function Menu() {
@@ -44,7 +55,7 @@ function Menu() {
                         <hr/>
                         <a href="/patients">Patients</a>
                         <hr/>
-                        <a>Examens</a>
+                        <a href="/exams">Examens</a>
                     </div>
 
                     <div id="opinions-container">
