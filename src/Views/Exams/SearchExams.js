@@ -1,7 +1,6 @@
 import React from "react";
 import './SearchExams.css';
 import searchlogo from "../../assets/search.svg";
-import PatientsSearchResults from "../../components/Search/PatientsSearchResults";
 import PatientExamResults from "../../components/Search/PatientExamResults";
 
 class SearchExams extends React.Component {
@@ -25,7 +24,20 @@ class SearchExams extends React.Component {
 
                     <input type="text" placeholder="Rechercher un patient..." value={this.state.value} onChange={e => this.handleChange(e)} />
                     <img src={searchlogo} />
+
                 </div>
+
+                <div id="filters-container">
+                    <div className="filter">
+                        Poumouns
+                    </div>
+
+                    <div className="filter">
+                        Peau
+                    </div>
+                </div>
+
+
 
                 <div id="results-container">
                     <PatientExamResults searchTag={this.state.searchTag}/>
