@@ -34,14 +34,14 @@ class PatientsSearchResults extends React.Component {
 
         if (this.state.searchTag) {
 
-            const filter = this.state.searchTag
+            const filter = this.state.searchTag;
 
             const filtered = this.state.patients.filter((patient) => {
                 return (patient.name.toLowerCase().includes(filter.toLowerCase()))
             });
 
-            console.log(filtered)
-            console.log(this.state.patients)
+            console.log(filtered);
+            console.log(this.state.patients);
 
             return filtered.map((patient, index) => {
                 const {id, name, lastExam} = patient;
