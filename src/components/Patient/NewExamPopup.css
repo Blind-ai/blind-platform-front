@@ -83,9 +83,9 @@
 }
 
 #close {
-    background-color: #004ace;
     display: flex;
     flex: 0.2;
+
 }
 
 #dropzone {

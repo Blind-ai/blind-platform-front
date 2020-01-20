@@ -2,6 +2,7 @@ import React from "react";
 import './NewExamPopup.css';
 import Dropzone from 'react-dropzone'
 import Select from 'react-select'
+import Axios from 'axios';
 
 
 const dropzoneStyle = {
@@ -20,7 +21,7 @@ const options = [
         value: 'Anomalie cutanee',
         label: 'Anomalie cutanee',
     }
-    ]
+    ];
 
 
 class NewExamPopup extends React.Component{
@@ -31,6 +32,7 @@ class NewExamPopup extends React.Component{
             examType : undefined,
             doctorName : undefined
         }
+
     }
 
     open() {
@@ -46,10 +48,21 @@ class NewExamPopup extends React.Component{
     }
 
     onBackgroundClick(event) {
-        event.preventDefault();
-        console.log(event.currentTarget);
-        if (event.currentTarget.id === 'popup-background')
-            this.close()
+
+    }
+
+    async upload(file) {
+
+
+
+        const data = new FormData();
+        data.append('myFile', file[0]);
+        const responsePromise = await fetch('http://localhost:8001/api/mock/uploadfile?type=lungh', {
+            mode: 'no-cors',
+            method: 'POST',
+            body : data
+        });
+        console.log(responsePromise)
     }
 
     render() {
@@ -59,7 +72,7 @@ class NewExamPopup extends React.Component{
 
                     <div id="popup-container">
                         <div onClick={() => {this.close()}} id="close">
-                            closeclose
+                            X
                         </div>
                         <div id="popup-header">
                             Nouvel Examen
@@ -78,13 +91,16 @@ class NewExamPopup extends React.Component{
 
                         </div>
 
+
                         <Dropzone
                             style={dropzoneStyle}
 
-                            onDrop={acceptedFiles => {
-                            alert('Uploaded')
-                            console.log(acceptedFiles)
-                        }}>
+                            onDrop={ acceptedFile => {
+                                this.upload(acceptedFile)
+
+                            }}
+
+                        >
                             {({getRootProps, getInputProps}) => (
                                     <div id="dropzone" {...getRootProps()}>
                                         <input id="drop-zone-input" {...getInputProps()} />
