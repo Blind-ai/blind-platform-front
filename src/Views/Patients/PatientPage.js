@@ -5,7 +5,7 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import Exams from "../../components/Patient/Exams";
 import PersonalInfos from "../../components/Patient/PersonalInfos";
 import NewExamPopup from "../../components/Patient/NewExamPopup";
-
+import History from "../../components/Patient/History";
 
 class PatientPage extends React.Component {
 
@@ -40,7 +40,7 @@ class PatientPage extends React.Component {
                     id: 2,
                     text: 'Antecedents',
                     isOpen: false,
-                    render: <PersonalInfos />
+                    render: <History/>
                 },
                 {
                     id: 3,

@@ -2,7 +2,6 @@ import React from "react";
 import './NewExamPopup.css';
 import Dropzone from 'react-dropzone'
 import Select from 'react-select'
-import Axios from 'axios';
 
 
 const dropzoneStyle = {
@@ -28,7 +27,7 @@ class NewExamPopup extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            isOpen : true,
+            isOpen : false,
             examType : undefined,
             doctorName : undefined
         }
