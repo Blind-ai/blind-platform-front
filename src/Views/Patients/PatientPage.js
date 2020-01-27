@@ -25,7 +25,42 @@ class PatientPage extends React.Component {
                     doctor: 'Dr. Leroux',
                     result: 'IA : anomalie'
                 },
-            ]
+            ];
+
+        const vaccins = [
+            {
+                type: 'Corona Virus',
+                date: '27-07-2019',
+                doctor: 'Dr. Leroux',
+                result: 'IA : anomalie'
+            },
+            {
+                type: 'Grippe Aviaire',
+                date: '27-07-2019',
+                doctor: 'Dr. Leroux',
+                result: 'IA : anomalie'
+            }
+        ];
+
+        const history = [
+            {
+                type: 'Grippe',
+                date: '27-07-2019',
+                doctor: 'Dr. Leroux',
+            },
+            {
+                type: 'Ebola',
+                date: '18-07-2019',
+                doctor: 'Dr. Leroux',
+            }
+        ]
+
+        const infos = {
+            firstname : 'John, Denis',
+            lastname : 'Bouvier',
+            marital: 'China',
+        };
+
 
         this.state = {
             name: this.props.location.state.name,
@@ -34,18 +69,19 @@ class PatientPage extends React.Component {
                 id: 1,
                 text: 'Infos personnelles',
                 isOpen: true,
-                render: <PersonalInfos />
+                render: <PersonalInfos infos={infos} />
             },
                 {
                     id: 2,
                     text: 'Antecedents',
                     isOpen: false,
-                    render: <History/>
+                    render: <History history={history}/>
                 },
                 {
                     id: 3,
                     text: 'Vaccins',
-                    isOpen: false
+                    isOpen: false,
+                    render: <History history={vaccins}/>
                 },
                 {
                     id: 4,

@@ -11,7 +11,6 @@ class Exams extends React.PureComponent {
 
     }
 
-
     renderExams() {
         return this.state.exams.map((exam, index) => {
             const {type, date, doctor, result} = exam;
@@ -23,13 +22,9 @@ class Exams extends React.PureComponent {
                 <div>{date}</div>
                 <div>{doctor}</div>
                 <div>{result}</div>
-
-
             </div>
             )
-
         })
-
     }
 
     render() {

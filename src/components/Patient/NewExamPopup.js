@@ -2,6 +2,7 @@ import React from "react";
 import './NewExamPopup.css';
 import Dropzone from 'react-dropzone'
 import Select from 'react-select'
+import api from '../../utils/api'
 
 
 const dropzoneStyle = {
@@ -53,15 +54,9 @@ class NewExamPopup extends React.Component{
     async upload(file) {
 
 
+        const response =  await api.uploadImage(file[0]); //Pour lisntant erreur psk fabien ne renvoie pas de json
 
-        const data = new FormData();
-        data.append('myFile', file[0]);
-        const responsePromise = await fetch('http://localhost:8001/api/mock/uploadfile?type=lungh', {
-            mode: 'no-cors',
-            method: 'POST',
-            body : data
-        });
-        console.log(responsePromise)
+        console.log(response)
     }
 
     render() {
