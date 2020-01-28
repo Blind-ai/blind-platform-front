@@ -7,63 +7,33 @@ import PersonalInfos from "../../components/Patient/PersonalInfos";
 import NewExamPopup from "../../components/Patient/NewExamPopup";
 import History from "../../components/Patient/History";
 
+const history = [
+    {
+        type: 'Grippe',
+        date: '27-07-2019',
+        doctor: 'Dr. Leroux',
+    },
+    {
+        type: 'Ebola',
+        date: '18-07-2019',
+        doctor: 'Dr. Leroux',
+    }
+];
+
 class PatientPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.child = React.createRef();
-        const exams = [
-                {
-                    type: 'Radio des poumons',
-                    date: '27-07-2019',
-                    doctor: 'Dr. Leroux',
-                    result: 'IA : anomalie'
-                },
-                {
-                    type: 'Radio des poumons',
-                    date: '27-07-2019',
-                    doctor: 'Dr. Leroux',
-                    result: 'IA : anomalie'
-                },
-            ];
 
-        const vaccins = [
-            {
-                type: 'Corona Virus',
-                date: '27-07-2019',
-                doctor: 'Dr. Leroux',
-                result: 'IA : anomalie'
-            },
-            {
-                type: 'Grippe Aviaire',
-                date: '27-07-2019',
-                doctor: 'Dr. Leroux',
-                result: 'IA : anomalie'
-            }
-        ];
+        this.onImageUploadCallback = this.onImageUploadCallback.bind(this)
 
-        const history = [
-            {
-                type: 'Grippe',
-                date: '27-07-2019',
-                doctor: 'Dr. Leroux',
-            },
-            {
-                type: 'Ebola',
-                date: '18-07-2019',
-                doctor: 'Dr. Leroux',
-            }
-        ]
+        const infos = this.props.location.state.infos;
+        console.log(infos)
 
-        const infos = {
-            firstname : 'John, Denis',
-            lastname : 'Bouvier',
-            marital: 'China',
-        };
-
-
+        //TODO pour les elemts, il faudra enlever le field render, trop de problemes. On pourra donc utiliser le state normalement
         this.state = {
-            name: this.props.location.state.name,
+            infos: infos,
 
             elements: [{
                 id: 1,
@@ -75,52 +45,76 @@ class PatientPage extends React.Component {
                     id: 2,
                     text: 'Antecedents',
                     isOpen: false,
-                    render: <History history={history}/>
+                    render: <History history={infos.background}/>
                 },
                 {
                     id: 3,
                     text: 'Vaccins',
                     isOpen: false,
-                    render: <History history={vaccins}/>
+                    render: <History history={infos.vaccines}/>
                 },
                 {
                     id: 4,
                     text: 'Examens',
                     isOpen: false,
-                    render: <Exams exams={exams}/>
+                    render: <Exams ref={this.exams} exams={infos.examinations}/>
                 }
             ]
-        }
-
-    }
-
-    componentWillMount()
-    {
-        // when params sent via url
-        if (this.props.location.state)
-        {
-            let params = this.props.history.location.state;
-            this.setState({ params });
         }
     }
 
     toggle(id) {
         let newState = Object.assign({}, this.state);
-        console.log(newState.elements);
         newState.elements[id - 1].isOpen = !newState.elements[id - 1].isOpen;
         this.setState(newState)
     }
-
 
     createNewExam() {
         this.child.current.open();
     }
 
+    async onImageUploadCallback(infos) {
+
+        console.log(this.state.infos)
+
+        await this.setState({
+            infos: infos
+        })
+
+        console.log(this.state.infos)
+    }
+
+    renderElement(id) {
+        switch (id) {
+            case 1 :
+                if (this.state.elements[0].isOpen)
+                    return  <PersonalInfos infos={this.state.infos} />;
+                return null;
+            case 2 :
+                if (this.state.elements[1].isOpen)
+                    return  <History history={this.state.infos.background}/>;
+                return null;
+            case 3 :
+                if (this.state.elements[2].isOpen)
+                    return  <History history={this.state.infos.vaccines}/>;
+                return null;
+            case 4 :
+                if (this.state.elements[3].isOpen)
+                    return  <Exams exams={this.state.infos.examinations} id={this.state.infos._id}/>;
+                return null;
+            default : return null
+
+        }
+    }
+
     render() {
+
+        const {_id} = this.state.infos;
+
         return (
             <div id="patient-page-container">
                 <div id="patient-header">
-                    <h1>Patient {this.state.name}</h1>
+                    <h1>Patient {_id}</h1>
                 </div>
 
                 <div id="patient-infos-container">
@@ -130,10 +124,8 @@ class PatientPage extends React.Component {
                         <div onClick={() => this.toggle(x.id)} key={x.id} className="collapse-header">
                             {x.text}
                             {x.isOpen ? <FiMinus/> : <FiPlus/>}
-
-                            {console.log(x)}
                         </div>
-                            {x.isOpen ? x.render : undefined}
+                            {this.renderElement(x.id)}
 
                         </div>
 
@@ -145,7 +137,7 @@ class PatientPage extends React.Component {
                     Nouvel Examen
                 </div>
 
-                <NewExamPopup ref={this.child}/>
+                <NewExamPopup onUpload={this.onImageUploadCallback} id={_id} ref={this.child}/>
 
 
             </div>

@@ -29,9 +29,12 @@ class NewExamPopup extends React.Component{
         super(props);
         this.state = {
             isOpen : false,
-            examType : undefined,
-            doctorName : undefined
-        }
+            examType : '',
+            doctorName : '',
+            id: props.id
+        };
+
+        this.handleTextInputChange = this.handleTextInputChange.bind(this);
 
     }
 
@@ -54,9 +57,20 @@ class NewExamPopup extends React.Component{
     async upload(file) {
 
 
-        const response =  await api.uploadImage(file[0]); //Pour lisntant erreur psk fabien ne renvoie pas de json
+        const {id, doctorName, examType} = this.state;
+        const response =  await api.uploadImage(file[0], id, examType, doctorName);
 
-        console.log(response)
+        alert("Successfully uploaded file");
+
+        this.props.onUpload(response)
+    }
+
+    async handleTextInputChange(event) {
+        await this.setState({doctorName: event.target.value})
+    }
+
+    async handleSelectChange(option) {
+        await this.setState({examType: option.value})
     }
 
     render() {
@@ -76,11 +90,11 @@ class NewExamPopup extends React.Component{
 
                             <div id='popup-row'>
                                 <p> Type d'examen</p>
-                                <Select id="popup-row-select" options={options}/>
+                                <Select  id="popup-row-select" options={options} onChange={selectedOption => this.handleSelectChange(selectedOption)}/>
                             </div>
                             <div id='popup-row'>
                                 <p> Nom du médecin</p>
-                                <input id="popup-row-input"/>
+                                <input value={this.state.doctorName} id="popup-row-input" onChange={e => this.handleTextInputChange(e)}/>
                             </div>
 
                         </div>

@@ -1,25 +1,34 @@
 import React from "react";
 import './PatientsSearchResults.css'
 import {withRouter} from 'react-router-dom';
+import api from '../../utils/api'
 
 class PatientsSearchResults extends React.Component {
 
     constructor(props) {
         super(props);
 
+
+      this.getPatients()
+
         this.state = {
             searchTag : '',
             patients: [
-                { id: 1, name: 'Lucas CLerisse', lastExam: '20-12-2019' },
-                { id: 2, name: 'Nathan Lebon', age: 19, lastExam: '20-12-2019' },
-                { id: 3, name: 'Flavian Gontier', age: 16, lastExam: '20-12-2019' },
-                { id: 4, name: 'Fabien Labarbe', age: 25, lastExam: '20-12-2019' },
-                { id: 5, name: 'Yoann Kersulec', age: 25, lastExam: '20-12-2019' },
-                { id: 6, name: 'Hadrien Mortier', age: 25, lastExam: '20-12-2019' },
-                { id: 345, name: 'John Frusciante', age: 25, lastExam: '20-12-2019' },
+
             ]
         }
     }
+
+    async getPatients() {
+        const response = await api.getPatients();
+
+        this.setState({
+            patients: response
+        })
+
+        console.log(this.state)
+    }
+
 
     async componentWillReceiveProps(nextProps) {
 
@@ -29,6 +38,14 @@ class PatientsSearchResults extends React.Component {
     }
 
 
+    getlastExamDate(examsList) {
+        if (examsList.length > 0) {
+            return '27-01-2020'
+        }
+        return "Pas d'examen";
+    }
+
+    //TODO completement refaire cette fonction..
 
     renderTableData() {
 
@@ -36,29 +53,45 @@ class PatientsSearchResults extends React.Component {
 
             const filter = this.state.searchTag;
 
-            const filtered = this.state.patients.filter((patient) => {
-                return (patient.name.toLowerCase().includes(filter.toLowerCase()))
+            const firstNameFiltered = this.state.patients.filter((patient) => {
+                return (patient.firstname.toLowerCase().includes(filter.toLowerCase()))
             });
 
-            console.log(filtered);
-            console.log(this.state.patients);
+            const lastNameFiltered = this.state.patients.filter((patient) => {
+                return (patient.lastname.toLowerCase().includes(filter.toLowerCase()))
+            });
+
+            Array.prototype.unique = function() {
+                let a = this.concat();
+                for(let i=0; i<a.length; ++i) {
+                    for(let j=i+1; j<a.length; ++j) {
+                        if(a[i] === a[j])
+                            a.splice(j--, 1);
+                    }
+                }
+
+                return a;
+            };
+
+            let filtered = firstNameFiltered.concat(lastNameFiltered).unique();
+
 
             return filtered.map((patient, index) => {
-                const {id, name, lastExam} = patient;
+                const {_id, firstname, lastname} = patient;
                 return (
-                    <tr id={index % 2 !== 0 ? 'row-normal' : 'row-greyed'} key={id} onClick={() =>
+                    <tr id={index % 2 !== 0 ? 'row-normal' : 'row-greyed'} key={_id} onClick={() =>
                     {
                         this.props.history.push({
-                            pathname: '/patient/' + id,
+                            pathname: '/patient/' + _id,
                             state: {
-                                name : name,
+                                infos : patient,
                             }
                         });
                     }}>
 
-                            <td id="name-cell">{name}</td>
-                            <td>{lastExam}</td>
-                            <td>{id}</td>
+                            <td id="name-cell">{firstname + ' ' + lastname}</td>
+                            <td>{this.getlastExamDate(patient.examinations)}</td>
+                            <td>{_id}</td>
                     </tr>
 
                 )

@@ -22,6 +22,11 @@
     align-items: center;
 }
 
+#exam-row img {
+    width: 300px;
+    height: 100px;
+}
+
 #exam-info {
     display: flex;
 }
