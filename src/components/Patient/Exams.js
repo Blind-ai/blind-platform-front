@@ -35,7 +35,7 @@ class Exams extends React.PureComponent {
                 <div id="exam-info">{type}</div>
                 <div>{date}</div>
                 <div>{doctor}</div>
-                <img src={'http://localhost:3000/' + this.state.id + '/' + attachment}/>
+                <img src={'http://188.166.53.41:5000/' + this.state.id + '/' + attachment}/>
             </div>
             )
         })
