@@ -1,13 +1,12 @@
-FROM mhart/alpine-node:12
+FROM mhart/alpine-node:12 AS builder
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci --prod
-
-
-FROM mhart/alpine-node:12
-WORKDIR /app
-COPY --from=0 /app .
 COPY . .
+RUN npm ci --prod
+RUN yarn run build
 
+FROM mhart/alpine-node
+RUN yarn global add serve
+WORKDIR /app
+COPY --from=builder /app/build .
 EXPOSE 8080
-CMD ["node", "server.js"]
+CMD ["serve", "-p", "8080", "-s", "."]
