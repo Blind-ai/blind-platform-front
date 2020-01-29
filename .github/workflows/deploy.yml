@@ -70,5 +70,5 @@ jobs:
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
         kubectl get services -o wide
-        helm upgrade blind-platform-front ./chart --set image.tag=$GITHUB_SHA
+        helm upgrade blind-platform-front ./chart --set image.tag=$GITHUB_SHA --install
 

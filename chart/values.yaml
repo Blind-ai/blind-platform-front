@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: gcr.io/blind-ai-263012/blind-platform-front
-  tag: ""
+  tag: "latest"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
