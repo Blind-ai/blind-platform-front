@@ -1,7 +1,7 @@
 
 //This is temporary, id like to split the different apis wrappers
 
-const ip = 'http://localhost:3000';
+const ip = 'http://188.166.53.41:5000';
 
 module.exports = {
 
