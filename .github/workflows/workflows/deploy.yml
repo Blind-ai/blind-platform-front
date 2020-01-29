@@ -22,7 +22,7 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GKE_ZONE: us-central1-a
   GKE_CLUSTER: blind-cluster
-  IMAGE: blind-showcase-front
+  IMAGE: blind-platform-front
 
 jobs:
   setup-build-publish-deploy:
@@ -69,5 +69,5 @@ jobs:
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
         kubectl get services -o wide
-        helm upgrade blind-showcase-front ./chart --set image.tag=$GITHUB_SHA
+        helm upgrade blind-platform-front ./chart --set image.tag=$GITHUB_SHA
 
