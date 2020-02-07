@@ -11,26 +11,32 @@ class PersonalInfos extends React.PureComponent{
     }
 
 
-    //TODO a remplacer avec des grids
+    // TODO a remplacer avec des grids
     render() {
         return (
-            <div id="personnalInfos-container">
-                <div id="personal-infos-row">
-                    <div id="info-container">
-                        <div className="info">Prénoms : </div>
-                        <div className="info-data"> {this.state.infos.firstname}</div>
-                    </div>
-                    <div id="info-container">
-                        <div className="info">Nom de Famille : </div>
-                        <div className="info-data"> {this.state.infos.lastname}</div>
-                    </div>
-                    <div id="info-container">
-                        <div className="info">Nom Marital : </div>
-                        <div className="info-data">{this.state.infos.marital}</div>
-                    </div>
+          <div id="personnalInfos-container">
+            <div id="personal-infos-row">
+              <div id="info-container">
+                <div className="info">Prénoms : </div>
+                <div className="info-data"> 
+                  {' '}
+                  {this.state.infos.firstname}
                 </div>
-
+              </div>
+              <div id="info-container">
+                <div className="info">Nom de Famille : </div>
+                <div className="info-data"> 
+                  {' '}
+                  {this.state.infos.lastname}
+                </div>
+              </div>
+              <div id="info-container">
+                <div className="info">Nom Marital : </div>
+                <div className="info-data">{this.state.infos.marital}</div>
+              </div>
             </div>
+
+          </div>
 
         );
     }

@@ -40,31 +40,32 @@ class PatientExamResults extends React.Component{
             return filtered.map((student, index) => {
                 const {id, name, lastExam, type} = student
                 return (
-                    <tr id={index % 2 !== 0 ? null : 'greyed'} key={id}>
-                        <td id="name-cell">{name}</td>
-                        <td>{lastExam}</td>
-                        <td>{type}</td>
-                    </tr>
+                  <tr id={index % 2 !== 0 ? null : 'greyed'} key={id}>
+                    <td id="name-cell">{name}</td>
+                    <td>{lastExam}</td>
+                    <td>{type}</td>
+                  </tr>
                 )
             })
         }
 
     }
+
     render() {
         return (
 
-            <table cellSpacing={0} id="results-table">
-                <tbody>
-                <tr id="list-header">
-                    <th>Nom</th>
-                    <th>Date du dernier examen</th>
-                    <th>Type</th>
-                </tr>
-                {this.renderTableData()}
-                </tbody>
+          <table cellSpacing={0} id="results-table">
+            <tbody>
+              <tr id="list-header">
+                <th>Nom</th>
+                <th>Date du dernier examen</th>
+                <th>Type</th>
+              </tr>
+              {this.renderTableData()}
+            </tbody>
 
 
-            </table>
+          </table>
         )
     }
 

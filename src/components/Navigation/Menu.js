@@ -28,60 +28,60 @@ const routes = [
     },
     {
         path: "/patient/:id",
-        main: () => <PatientPage/>
+        main: () => <PatientPage />
     }
 
 ];
 
 function Menu() {
     return (
-        <Router>
+      <Router>
 
         <div id="container">
 
-            <div id="top-container">
-                <img src={logo}/>
+          <div id="top-container">
+            <img src={logo} />
 
-                <div id="header">
-                    <Account name={"Dr. Girafon"}/>
-                </div>
-
+            <div id="header">
+              <Account name="Dr. Girafon" />
             </div>
 
-            <div id="lower-container">
-                <div id="sidebar">
-                    <div id="menu-container">
-                        <a>Accueil</a>
-                        <hr/>
-                        <a href="/patients">Patients</a>
-                        <hr/>
-                        <a href="/exams">Examens</a>
-                    </div>
+          </div>
 
-                    <div id="opinions-container">
-                        <hr/>
-                        <a>Donnez votre avis !</a>
-                    </div>
-                </div>
-                    <Switch>
-                        {routes.map((route, index) => (
+          <div id="lower-container">
+            <div id="sidebar">
+              <div id="menu-container">
+                <a>Accueil</a>
+                <hr />
+                <a href="/patients">Patients</a>
+                <hr />
+                <a href="/exams">Examens</a>
+              </div>
+
+              <div id="opinions-container">
+                <hr />
+                <a>Donnez votre avis !</a>
+              </div>
+            </div>
+            <Switch>
+              {routes.map((route, index) => (
                             // Render more <Route>s with the same paths as
                             // above, but different components this time.
-                            <Route
-                                key={index}
-                                path={route.path}
-                                exact={route.exact}
-                                children={<route.main />}
-                            />
+                <Route
+                  key={index}
+                  path={route.path}
+                  exact={route.exact}
+                  children={<route.main />}
+                />
                         ))}
-                    </Switch>
+            </Switch>
 
-            </div>
+          </div>
 
 
 
         </div>
-        </Router>
+      </Router>
 
     )
 }

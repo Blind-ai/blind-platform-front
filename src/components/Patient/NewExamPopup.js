@@ -76,51 +76,50 @@ class NewExamPopup extends React.Component{
     render() {
         if (this.state.isOpen) {
             return (
-                <div onClick={(event) => this.onBackgroundClick(event)} id="popup-background">
+              <div onClick={(event) => this.onBackgroundClick(event)} id="popup-background">
 
-                    <div id="popup-container">
-                        <div onClick={() => {this.close()}} id="close">
-                            X
-                        </div>
-                        <div id="popup-header">
-                            Nouvel Examen
-                        </div>
+                <div id="popup-container">
+                  <div onClick={() => {this.close()}} id="close">
+                    X
+                  </div>
+                  <div id="popup-header">
+                    Nouvel Examen
+                  </div>
 
-                        <div id="popup-content">
+                  <div id="popup-content">
 
-                            <div id='popup-row'>
-                                <p> Type d'examen</p>
-                                <Select  id="popup-row-select" options={options} onChange={selectedOption => this.handleSelectChange(selectedOption)}/>
-                            </div>
-                            <div id='popup-row'>
-                                <p> Nom du médecin</p>
-                                <input value={this.state.doctorName} id="popup-row-input" onChange={e => this.handleTextInputChange(e)}/>
-                            </div>
+                    <div id='popup-row'>
+                      <p> Type d'examen</p>
+                      <Select id="popup-row-select" options={options} onChange={selectedOption => this.handleSelectChange(selectedOption)} />
+                    </div>
+                    <div id='popup-row'>
+                      <p> Nom du médecin</p>
+                      <input value={this.state.doctorName} id="popup-row-input" onChange={e => this.handleTextInputChange(e)} />
+                    </div>
 
-                        </div>
+                  </div>
 
 
-                        <Dropzone
-                            style={dropzoneStyle}
+                  <Dropzone
+                    style={dropzoneStyle}
 
-                            onDrop={ acceptedFile => {
+                    onDrop={acceptedFile => {
                                 this.upload(acceptedFile)
 
                             }}
-
-                        >
-                            {({getRootProps, getInputProps}) => (
-                                    <div id="dropzone" {...getRootProps()}>
-                                        <input id="drop-zone-input" {...getInputProps()} />
-                                        <p>Drag 'n' drop some files here, or click to select files</p>
-                                    </div>
+                  >
+                    {({getRootProps, getInputProps}) => (
+                      <div id="dropzone" {...getRootProps()}>
+                        <input id="drop-zone-input" {...getInputProps()} />
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                      </div>
                             )}
-                        </Dropzone>
-                    </div>
+                  </Dropzone>
                 </div>
+              </div>
             )
         }
-        else return null;
+        return null;
     }
 
 }

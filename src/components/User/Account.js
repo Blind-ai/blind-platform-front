@@ -4,10 +4,10 @@ import pp from '../../assets/jimi.jpg'
 
 function Account(props) {
     return (
-        <a id="account-text">
-            {props.name}
-            <img src={pp} />
-        </a>
+      <a id="account-text">
+        {props.name}
+        <img src={pp} />
+      </a>
     )
 
 }

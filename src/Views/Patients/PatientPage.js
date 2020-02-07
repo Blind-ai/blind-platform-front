@@ -28,12 +28,12 @@ class PatientPage extends React.Component {
 
         this.onImageUploadCallback = this.onImageUploadCallback.bind(this)
 
-        const infos = this.props.location.state.infos;
+        const {infos} = this.props.location.state;
         console.log(infos)
 
-        //TODO pour les elemts, il faudra enlever le field render, trop de problemes. On pourra donc utiliser le state normalement
+        // TODO pour les elemts, il faudra enlever le field render, trop de problemes. On pourra donc utiliser le state normalement
         this.state = {
-            infos: infos,
+            infos,
 
             elements: [{
                 id: 1,
@@ -45,26 +45,26 @@ class PatientPage extends React.Component {
                     id: 2,
                     text: 'Antecedents',
                     isOpen: false,
-                    render: <History history={infos.background}/>
+                    render: <History history={infos.background} />
                 },
                 {
                     id: 3,
                     text: 'Vaccins',
                     isOpen: false,
-                    render: <History history={infos.vaccines}/>
+                    render: <History history={infos.vaccines} />
                 },
                 {
                     id: 4,
                     text: 'Examens',
                     isOpen: false,
-                    render: <Exams ref={this.exams} exams={infos.examinations}/>
+                    render: <Exams ref={this.exams} exams={infos.examinations} />
                 }
             ]
         }
     }
 
     toggle(id) {
-        let newState = Object.assign({}, this.state);
+        const newState = { ...this.state};
         newState.elements[id - 1].isOpen = !newState.elements[id - 1].isOpen;
         this.setState(newState)
     }
@@ -78,7 +78,7 @@ class PatientPage extends React.Component {
         console.log(this.state.infos)
 
         await this.setState({
-            infos: infos
+            infos
         })
 
         console.log(this.state.infos)
@@ -92,15 +92,15 @@ class PatientPage extends React.Component {
                 return null;
             case 2 :
                 if (this.state.elements[1].isOpen)
-                    return  <History history={this.state.infos.background}/>;
+                    return  <History history={this.state.infos.background} />;
                 return null;
             case 3 :
                 if (this.state.elements[2].isOpen)
-                    return  <History history={this.state.infos.vaccines}/>;
+                    return  <History history={this.state.infos.vaccines} />;
                 return null;
             case 4 :
                 if (this.state.elements[3].isOpen)
-                    return  <Exams exams={this.state.infos.examinations} id={this.state.infos._id}/>;
+                    return  <Exams exams={this.state.infos.examinations} id={this.state.infos._id} />;
                 return null;
             default : return null
 
@@ -112,35 +112,38 @@ class PatientPage extends React.Component {
         const {_id} = this.state.infos;
 
         return (
-            <div id="patient-page-container">
-                <div id="patient-header">
-                    <h1>Patient {_id}</h1>
+          <div id="patient-page-container">
+            <div id="patient-header">
+              <h1>
+                Patient
+                {_id}
+              </h1>
+            </div>
+
+            <div id="patient-infos-container">
+
+              {this.state.elements.map (x => (
+                <div key={x.id} className="info-container">
+                  <div onClick={() => this.toggle(x.id)} key={x.id} className="collapse-header">
+                    {x.text}
+                    {x.isOpen ? <FiMinus /> : <FiPlus />}
+                  </div>
+                  {this.renderElement(x.id)}
+
                 </div>
-
-                <div id="patient-infos-container">
-
-                    {this.state.elements.map (x => (
-                        <div key={x.id} className="info-container">
-                        <div onClick={() => this.toggle(x.id)} key={x.id} className="collapse-header">
-                            {x.text}
-                            {x.isOpen ? <FiMinus/> : <FiPlus/>}
-                        </div>
-                            {this.renderElement(x.id)}
-
-                        </div>
 
 
                         ))}
-                </div>
-
-                <div onClick={() => this.createNewExam()} id="new-exam-button">
-                    Nouvel Examen
-                </div>
-
-                <NewExamPopup onUpload={this.onImageUploadCallback} id={_id} ref={this.child}/>
-
-
             </div>
+
+            <div onClick={() => this.createNewExam()} id="new-exam-button">
+              Nouvel Examen
+            </div>
+
+            <NewExamPopup onUpload={this.onImageUploadCallback} id={_id} ref={this.child} />
+
+
+          </div>
         )
     }
 }

@@ -31,21 +31,21 @@ class Exams extends React.PureComponent {
             console.log(exam);
 
             return (
-            <div key={index} id="exam-row">
+              <div key={index} id="exam-row">
                 <div id="exam-info">{type}</div>
                 <div>{date}</div>
                 <div>{doctor}</div>
-                <img src={'http://188.166.53.41:5000/' + this.state.id + '/' + attachment}/>
-            </div>
+                <img src={`http://188.166.53.41:5000/${  this.state.id  }/${  attachment}`} />
+              </div>
             )
         })
     }
 
     render() {
         return (
-           <div id="personnalInfos-container">
-               {this.renderExams()}
-           </div>
+          <div id="personnalInfos-container">
+            {this.renderExams()}
+          </div>
         )
     }
 }

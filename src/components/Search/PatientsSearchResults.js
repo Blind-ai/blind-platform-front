@@ -45,7 +45,7 @@ class PatientsSearchResults extends React.Component {
         return "Pas d'examen";
     }
 
-    //TODO completement refaire cette fonction..
+    // TODO completement refaire cette fonction..
 
     renderTableData() {
 
@@ -62,7 +62,7 @@ class PatientsSearchResults extends React.Component {
             });
 
             Array.prototype.unique = function() {
-                let a = this.concat();
+                const a = this.concat();
                 for(let i=0; i<a.length; ++i) {
                     for(let j=i+1; j<a.length; ++j) {
                         if(a[i] === a[j])
@@ -73,26 +73,30 @@ class PatientsSearchResults extends React.Component {
                 return a;
             };
 
-            let filtered = firstNameFiltered.concat(lastNameFiltered).unique();
+            const filtered = firstNameFiltered.concat(lastNameFiltered).unique();
 
 
             return filtered.map((patient, index) => {
                 const {_id, firstname, lastname} = patient;
                 return (
-                    <tr id={index % 2 !== 0 ? 'row-normal' : 'row-greyed'} key={_id} onClick={() =>
+                  <tr
+                    id={index % 2 !== 0 ? 'row-normal' : 'row-greyed'}
+                    key={_id}
+                    onClick={() =>
                     {
                         this.props.history.push({
-                            pathname: '/patient/' + _id,
+                            pathname: `/patient/${  _id}`,
                             state: {
                                 infos : patient,
                             }
                         });
-                    }}>
+                    }}
+                  >
 
-                            <td id="name-cell">{firstname + ' ' + lastname}</td>
-                            <td>{this.getlastExamDate(patient.examinations)}</td>
-                            <td>{_id}</td>
-                    </tr>
+                    <td id="name-cell">{`${firstname  } ${  lastname}`}</td>
+                    <td>{this.getlastExamDate(patient.examinations)}</td>
+                    <td>{_id}</td>
+                  </tr>
 
                 )
             })
@@ -102,18 +106,18 @@ class PatientsSearchResults extends React.Component {
     render() {
         return (
 
-            <table cellSpacing={0} id="results-table">
-                <tbody>
-                <tr id="list-header">
-                    <th>Nom</th>
-                    <th>Date du dernier examen</th>
-                    <th>ID</th>
-                </tr>
-                {this.renderTableData()}
-                </tbody>
+          <table cellSpacing={0} id="results-table">
+            <tbody>
+              <tr id="list-header">
+                <th>Nom</th>
+                <th>Date du dernier examen</th>
+                <th>ID</th>
+              </tr>
+              {this.renderTableData()}
+            </tbody>
 
 
-            </table>
+          </table>
         )
     }
 }

@@ -19,31 +19,31 @@ class SearchExams extends React.Component {
 
     render() {
         return (
-            <div id="search-exams-container">
-                <div id="input-container">
+          <div id="search-exams-container">
+            <div id="input-container">
 
-                    <input type="text" placeholder="Rechercher un patient..." value={this.state.value} onChange={e => this.handleChange(e)} />
-                    <img src={searchlogo} />
-
-                </div>
-
-                <div id="filters-container">
-                    <div className="filter">
-                        Poumouns
-                    </div>
-
-                    <div className="filter">
-                        Peau
-                    </div>
-                </div>
-
-
-
-                <div id="results-container">
-                    <PatientExamResults searchTag={this.state.searchTag}/>
-                </div>
+              <input type="text" placeholder="Rechercher un patient..." value={this.state.value} onChange={e => this.handleChange(e)} />
+              <img src={searchlogo} />
 
             </div>
+
+            <div id="filters-container">
+              <div className="filter">
+                Poumouns
+              </div>
+
+              <div className="filter">
+                Peau
+              </div>
+            </div>
+
+
+
+            <div id="results-container">
+              <PatientExamResults searchTag={this.state.searchTag} />
+            </div>
+
+          </div>
         );
     }
 
