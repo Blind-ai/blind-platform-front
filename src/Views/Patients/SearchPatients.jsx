@@ -11,7 +11,7 @@ const SearchPatients = () => {
   useEffect(() => {
     api.getPatients()
     .then(results => setPatients(results))
-  }, [])
+  }, []);
   
   return (
     <div id="search-patients-container">

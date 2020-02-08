@@ -1,10 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React from 'react';
 import './PatientsSearchResults.css'
-import { useHistory } from "react-router-dom";
-import {withRouter} from 'react-router-dom';
-import api from '../../utils/api'
-
-
+import { useHistory, withRouter } from "react-router-dom";
 
 const PatientsSearchResults = ({patients, searchTag}) => {
     const history = useHistory();
@@ -14,7 +10,7 @@ const PatientsSearchResults = ({patients, searchTag}) => {
 
         arrays.forEach(array => {
             jointArray = [...jointArray, ...array]
-        })
+        });
         const uniqueArray = jointArray.filter((item,index) => jointArray.indexOf(item) === index);
         return (uniqueArray);
     }
