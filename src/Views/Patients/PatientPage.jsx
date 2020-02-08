@@ -25,6 +25,7 @@ class PatientPage extends React.Component {
     constructor(props) {
         super(props);
         this.child = React.createRef();
+        console.log("PATIENT PAGE")
 
         this.onImageUploadCallback = this.onImageUploadCallback.bind(this)
 

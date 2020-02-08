@@ -1,82 +1,48 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './PatientsSearchResults.css'
+import { useHistory } from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import api from '../../utils/api'
 
-class PatientsSearchResults extends React.Component {
-
-    constructor(props) {
-        super(props);
 
 
-      this.getPatients()
+const PatientsSearchResults = ({patients, searchTag}) => {
+    const history = useHistory();
 
-        this.state = {
-            searchTag : '',
-            patients: [
+    function mergeArrays(...arrays) {
+        let jointArray = [];
 
-            ]
-        }
-    }
-
-    async getPatients() {
-        const response = await api.getPatients();
-
-        this.setState({
-            patients: response
+        arrays.forEach(array => {
+            jointArray = [...jointArray, ...array]
         })
-
-        console.log(this.state)
+        const uniqueArray = jointArray.filter((item,index) => jointArray.indexOf(item) === index);
+        return (uniqueArray);
     }
 
-
-    async componentWillReceiveProps(nextProps) {
-
-        console.log(nextProps)
-        await this.setState({searchTag: nextProps.searchTag});
-        console.log(this.state.searchTag)
-    }
-
-
-    getlastExamDate(examsList) {
+    function getlastExamDate(examsList) {
         if (examsList.length > 0) {
             return '27-01-2020'
         }
         return "Pas d'examen";
     }
 
-    // TODO completement refaire cette fonction..
+    function filterPatients() {
+        const firstNameFiltered = patients.filter((patient) => {
+            return (patient.firstname.toLowerCase().includes(searchTag.toLowerCase()))
+        });
+        const lastNameFiltered = patients.filter((patient) => {
+            return (patient.lastname.toLowerCase().includes(searchTag.toLowerCase()))
+        });
 
-    renderTableData() {
+        return mergeArrays(firstNameFiltered, lastNameFiltered);
+    }
 
-        if (this.state.searchTag) {
+    function renderTableData() {
+        if (searchTag) {
+            const filteredPatients = filterPatients();
+            console.log(filteredPatients)
 
-            const filter = this.state.searchTag;
-
-            const firstNameFiltered = this.state.patients.filter((patient) => {
-                return (patient.firstname.toLowerCase().includes(filter.toLowerCase()))
-            });
-
-            const lastNameFiltered = this.state.patients.filter((patient) => {
-                return (patient.lastname.toLowerCase().includes(filter.toLowerCase()))
-            });
-
-            Array.prototype.unique = function() {
-                const a = this.concat();
-                for(let i=0; i<a.length; ++i) {
-                    for(let j=i+1; j<a.length; ++j) {
-                        if(a[i] === a[j])
-                            a.splice(j--, 1);
-                    }
-                }
-
-                return a;
-            };
-
-            const filtered = firstNameFiltered.concat(lastNameFiltered).unique();
-
-
-            return filtered.map((patient, index) => {
+            return filteredPatients.map((patient, index) => {
                 const {_id, firstname, lastname} = patient;
                 return (
                   <tr
@@ -84,42 +50,37 @@ class PatientsSearchResults extends React.Component {
                     key={_id}
                     onClick={() =>
                     {
-                        this.props.history.push({
-                            pathname: `/patient/${  _id}`,
+                       history.push({
+                            pathname: `/patient/${_id}`,
                             state: {
                                 infos : patient,
                             }
                         });
                     }}
                   >
-
                     <td id="name-cell">{`${firstname  } ${  lastname}`}</td>
-                    <td>{this.getlastExamDate(patient.examinations)}</td>
+                    <td>{getlastExamDate(patient.examinations)}</td>
                     <td>{_id}</td>
                   </tr>
 
                 )
             })
         }
+        return null;
     }
 
-    render() {
-        return (
-
-          <table cellSpacing={0} id="results-table">
-            <tbody>
-              <tr id="list-header">
-                <th>Nom</th>
-                <th>Date du dernier examen</th>
-                <th>ID</th>
-              </tr>
-              {this.renderTableData()}
-            </tbody>
-
-
-          </table>
-        )
-    }
+    return (
+      <table cellSpacing={0} id="results-table">
+        <tbody>
+          <tr id="list-header">
+            <th>Nom</th>
+            <th>Date du dernier examen</th>
+            <th>ID</th>
+          </tr>
+          {renderTableData()}
+        </tbody>
+      </table>
+    )
 }
 
 export default withRouter(PatientsSearchResults);

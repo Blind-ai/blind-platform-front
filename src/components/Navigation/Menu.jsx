@@ -2,6 +2,7 @@ import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
+  Route,
 } from "react-router-dom";
 import './Menu.css'
 import logo from '../../assets/blind-blue.svg'
@@ -10,7 +11,7 @@ import SearchPatients from "../../Views/Patients/SearchPatients";
 import SearchExams from "../../Views/Exams/SearchExams";
 import PatientPage from "../../Views/Patients/PatientPage";
 
-function Menu() {
+const Menu = () => {
     return (
       <Router>
 
@@ -41,19 +42,11 @@ function Menu() {
               </div>
             </div>
             <Switch>
-              <Router path="/" exact><h2>Welcome</h2></Router>
+              <Route path="/" exact><h2>Welcome</h2></Route>
+              <Route path="/patients" component={SearchPatients} />
 
-              <Router path="/patients">
-                <SearchPatients />
-              </Router>
-
-              <Router path="/exams">
-                <SearchExams />
-              </Router>
-
-              <Router path="/patient/:id">
-                <PatientPage />
-              </Router>
+              <Route path="/exams" component={SearchExams} />
+              <Route path="/patient/:id" component={PatientPage} />
             </Switch>
           </div>
         </div>
