@@ -2,5 +2,11 @@
   "env": {
     "browser": true
   },
-  "extends": ["airbnb", "prettier"]
+  "plugins": [
+    "react"
+  ],
+  "extends": ["airbnb", "prettier"],
+  "rules": {
+    "react/prop-types": 0
+  }
 }
