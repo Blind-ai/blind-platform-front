@@ -37,7 +37,7 @@ function Menu() {
 
               <div id="opinions-container">
                 <hr />
-                <a href="#">Donnez votre avis !</a>
+                <a href="/">Donnez votre avis !</a>
               </div>
             </div>
             <Switch>

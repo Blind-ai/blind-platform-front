@@ -6,10 +6,6 @@ const ip = 'http://188.166.53.41:5000';
 module.exports = {
 
     uploadImage(file, patientId, type, doctor) {
-
-
-        console.log(doctor, type)
-
         const data = new FormData();
         data.append('attachment', file);
         data.append('name', type);
