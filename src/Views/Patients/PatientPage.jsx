@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {withRouter} from 'react-router-dom';
 import './PatientPage.css';
 import { FiMinus, FiPlus } from "react-icons/fi";
@@ -7,146 +7,104 @@ import PersonalInfos from "../../components/Patient/PersonalInfos";
 import NewExamPopup from "../../components/Patient/NewExamPopup";
 import History from "../../components/Patient/History";
 
-const history = [
+/* eslint-disable no-underscore-dangle */
+
+const initialElements = [
+  {
+    id: 1,
+    text: 'Infos personnelles',
+    isOpen: true, 
+  }, 
     {
-        type: 'Grippe',
-        date: '27-07-2019',
-        doctor: 'Dr. Leroux',
+        id: 2,
+        text: 'Antecedents',
+        isOpen: false,
     },
     {
-        type: 'Ebola',
-        date: '18-07-2019',
-        doctor: 'Dr. Leroux',
+        id: 3,
+        text: 'Vaccins',
+        isOpen: false,
+    },
+    {
+        id: 4,
+        text: 'Examens',
+        isOpen: false,
     }
 ];
 
-class PatientPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.child = React.createRef();
-        console.log("PATIENT PAGE")
+const PatientPage = (props) => {
+    console.log(props)
+    const [infos, setInfos] = useState(props.location.state.infos);
+    const [elements, setElements] = useState(initialElements);
 
-        this.onImageUploadCallback = this.onImageUploadCallback.bind(this)
+    const child = React.createRef();
 
-        const {infos} = this.props.location.state;
-        console.log(infos)
 
-        // TODO pour les elemts, il faudra enlever le field render, trop de problemes. On pourra donc utiliser le state normalement
-        this.state = {
-            infos,
-
-            elements: [{
-                id: 1,
-                text: 'Infos personnelles',
-                isOpen: true,
-                render: <PersonalInfos infos={infos} />
-            },
-                {
-                    id: 2,
-                    text: 'Antecedents',
-                    isOpen: false,
-                    render: <History history={infos.background} />
-                },
-                {
-                    id: 3,
-                    text: 'Vaccins',
-                    isOpen: false,
-                    render: <History history={infos.vaccines} />
-                },
-                {
-                    id: 4,
-                    text: 'Examens',
-                    isOpen: false,
-                    render: <Exams ref={this.exams} exams={infos.examinations} />
-                }
-            ]
-        }
+    function toggle(id) {
+        console.log(id)
+        const newElements = [ ...elements];
+        newElements[id - 1].isOpen = !newElements[id - 1].isOpen;
+        setElements(newElements);
     }
 
-    toggle(id) {
-        const newState = { ...this.state};
-        newState.elements[id - 1].isOpen = !newState.elements[id - 1].isOpen;
-        this.setState(newState)
+    function createNewExam() {
+        child.current.open();
     }
 
-    createNewExam() {
-        this.child.current.open();
+    function onImageUploadCallback(newInfos) {
+        setInfos(newInfos);
     }
 
-    async onImageUploadCallback(infos) {
-
-        console.log(this.state.infos)
-
-        await this.setState({
-            infos
-        })
-
-        console.log(this.state.infos)
-    }
-
-    renderElement(id) {
+    function renderElement(id) {
         switch (id) {
             case 1 :
-                if (this.state.elements[0].isOpen)
-                    return  <PersonalInfos infos={this.state.infos} />;
+                if (elements[0].isOpen)
+                    return  <PersonalInfos infos={infos} />;
                 return null;
             case 2 :
-                if (this.state.elements[1].isOpen)
-                    return  <History history={this.state.infos.background} />;
+                if (elements[1].isOpen)
+                    return  <History history={infos.background} />;
                 return null;
             case 3 :
-                if (this.state.elements[2].isOpen)
-                    return  <History history={this.state.infos.vaccines} />;
+                if (elements[2].isOpen)
+                    return  <History history={infos.vaccines} />;
                 return null;
             case 4 :
-                if (this.state.elements[3].isOpen)
-                    return  <Exams exams={this.state.infos.examinations} id={this.state.infos._id} />;
+                if (elements[3].isOpen)
+                    return  <Exams exams={infos.examinations} id={infos._id} />;
                 return null;
             default : return null
-
         }
     }
+    return (
+      <div id="patient-page-container">
+        <div id="patient-header">
+          <h1>
+            Patient
+            {infos._id}
+          </h1>
+        </div>
 
-    render() {
+        <div id="patient-infos-container">
 
-        const {_id} = this.state.infos;
-
-        return (
-          <div id="patient-page-container">
-            <div id="patient-header">
-              <h1>
-                Patient
-                {_id}
-              </h1>
+          {elements.map (x => (
+            <div key={x.id} className="info-container">
+              <div onClick={() => toggle(x.id)} key={x.id} className="collapse-header">
+                {x.text}
+                {x.isOpen ? <FiMinus /> : <FiPlus />}
+              </div>
+              {renderElement(x.id)}
             </div>
+              ))}
+        </div>
+        <div onClick={() => createNewExam()} id="new-exam-button">
+          Nouvel Examen
+        </div>
 
-            <div id="patient-infos-container">
-
-              {this.state.elements.map (x => (
-                <div key={x.id} className="info-container">
-                  <div onClick={() => this.toggle(x.id)} key={x.id} className="collapse-header">
-                    {x.text}
-                    {x.isOpen ? <FiMinus /> : <FiPlus />}
-                  </div>
-                  {this.renderElement(x.id)}
-
-                </div>
-
-
-                        ))}
-            </div>
-
-            <div onClick={() => this.createNewExam()} id="new-exam-button">
-              Nouvel Examen
-            </div>
-
-            <NewExamPopup onUpload={this.onImageUploadCallback} id={_id} ref={this.child} />
-
-
-          </div>
-        )
-    }
-}
+        <NewExamPopup onUpload={onImageUploadCallback} id={infos._id} ref={child} />
+      </div>
+    )
+};
 
 export default withRouter(PatientPage);
