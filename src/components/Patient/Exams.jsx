@@ -1,53 +1,37 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './Exams.css'
 
-class Exams extends React.PureComponent {
-    constructor(props) {
-        super(props);
+const Exams = ({id, exams}) => {
+    const [examsList, setExamsList] = useState(exams);
 
-        console.log(props.id)
-        console.log(props)
+    useEffect(() => {
+        setExamsList(exams)
+    }, [exams]);
 
-        this.state = {
-            exams : props.exams,
-            id: props.id
-        }
-    }
-
-
-    componentWillReceiveProps(props) {
-        this.setState({
-            exams: props.exams
-        })
-    }
-
-
-        renderExams() {
-        if (this.state.exams.length === 0) {
+    function renderExams() {
+        if (examsList.length === 0) {
             return <div id="exam-row">Vide</div>
         }
-        return this.state.exams.map((exam, index) => {
+        return examsList.map((exam, index) => {
             const {type, date, doctor, attachment} = exam;
-            console.log(exam);
 
             return (
               <div key={index} id="exam-row">
                 <div id="exam-info">{type}</div>
                 <div>{date}</div>
                 <div>{doctor}</div>
-                <img src={`http://188.166.53.41:5000/${  this.state.id  }/${  attachment}`} />
+                <img src={`http://188.166.53.41:5000/${  id  }/${  attachment}`} />
               </div>
             )
         })
     }
 
-    render() {
-        return (
-          <div id="personnalInfos-container">
-            {this.renderExams()}
-          </div>
-        )
-    }
-}
+    return (
+      <div id="personnalInfos-container">
+        {renderExams()}
+      </div>
+    )
+
+};
 
 export default Exams;
