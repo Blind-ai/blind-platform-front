@@ -33,23 +33,24 @@ const initialElements = [
 ];
 
 
-const PatientPage = (props) => {
-    console.log(props)
-    const [infos, setInfos] = useState(props.location.state.infos);
+const PatientPage = ({location}) => {
+    const [infos, setInfos] = useState(location.state.infos);
     const [elements, setElements] = useState(initialElements);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const child = React.createRef();
 
+    function closeCallback() {
+      setIsPopupOpen(false)
+    }
 
     function toggle(id) {
-        console.log(id)
         const newElements = [ ...elements];
         newElements[id - 1].isOpen = !newElements[id - 1].isOpen;
         setElements(newElements);
     }
 
     function createNewExam() {
-        child.current.open();
+      setIsPopupOpen(true);
     }
 
     function onImageUploadCallback(newInfos) {
@@ -90,7 +91,7 @@ const PatientPage = (props) => {
 
           {elements.map (x => (
             <div key={x.id} className="info-container">
-              <div onClick={() => toggle(x.id)} key={x.id} className="collapse-header">
+              <div role="button" onClick={() => toggle(x.id)} key={x.id} onKeyDown={() => toggle(x.id)} className="collapse-header">
                 {x.text}
                 {x.isOpen ? <FiMinus /> : <FiPlus />}
               </div>
@@ -102,7 +103,7 @@ const PatientPage = (props) => {
           Nouvel Examen
         </div>
 
-        <NewExamPopup onUpload={onImageUploadCallback} id={infos._id} ref={child} />
+        {isPopupOpen ? <NewExamPopup onUpload={onImageUploadCallback} id={infos._id} closeCallback={closeCallback} /> : null}
       </div>
     )
 };
