@@ -2,13 +2,17 @@ import React, {useState} from "react";
 import './NewExamPopup.css';
 import Dropzone from 'react-dropzone'
 import Select from 'react-select'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button'
 import api from '../../utils/api'
 
 
 const dropzoneStyle = {
     width  : "20%",
     height : "150px",
-    border : "1px solid black"
+    border : "1px solid black",
+  backgroundColor: '#8bffa0'
 };
 
 
@@ -41,14 +45,16 @@ const NewExamPopup = ({id, closeCallback, onUpload}) => {
   }
 
   return (
-    <div id="popup-background">
-      <div id="popup-container">
-        <div role="button" tabIndex={0} onClick={() => {closeCallback()}} onKeyDown={closeCallback} id="close">
+
+    <Modal show size="lg">
+      <Modal.Header>
+        <Modal.Title>Nouvel Examen</Modal.Title>
+
+        <Button role="button" tabIndex={0} onClick={() => {closeCallback()}} onKeyDown={closeCallback} id="close">
           X
-        </div>
-        <div id="popup-header">
-          Nouvel Examen
-        </div>
+        </Button>
+      </Modal.Header>
+      <Modal.Body>
         <div id="popup-content">
           <div id='popup-row'>
             <p> Type d'examen</p>
@@ -59,21 +65,25 @@ const NewExamPopup = ({id, closeCallback, onUpload}) => {
             <input value={doctorName} id="popup-row-input" onChange={e => setDoctorName(e.target.value)} />
           </div>
         </div>
+        <div id="popup-row">
         <Dropzone
           style={dropzoneStyle}
           onDrop={acceptedFile => {
-            upload(acceptedFile)
-          }}
+          upload(acceptedFile)
+        }}
         >
           {({getRootProps, getInputProps}) => (
             <div id="dropzone" {...getRootProps()}>
               <input id="drop-zone-input" {...getInputProps()} />
               <p>Drag 'n' drop some files here, or click to select files</p>
             </div>
-          )}
+        )}
         </Dropzone>
-      </div>
-    </div>
+        </div>
+      </Modal.Body>
+    </Modal>
+
+
   )
 };
 
