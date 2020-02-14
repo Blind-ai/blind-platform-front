@@ -8,6 +8,8 @@ import NewExamPopup from "../../components/Patient/NewExamPopup";
 import History from "../../components/Patient/History";
 
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 
 const initialElements = [
   {
@@ -91,7 +93,7 @@ const PatientPage = ({location}) => {
 
           {elements.map (x => (
             <div key={x.id} className="info-container">
-              <div role="button" onClick={() => toggle(x.id)} key={x.id} onKeyDown={() => toggle(x.id)} className="collapse-header">
+              <div tabIndex={0} role="button" onClick={() => toggle(x.id)} key={x.id} className="collapse-header">
                 {x.text}
                 {x.isOpen ? <FiMinus /> : <FiPlus />}
               </div>
@@ -99,7 +101,7 @@ const PatientPage = ({location}) => {
             </div>
               ))}
         </div>
-        <div onClick={() => createNewExam()} id="new-exam-button">
+        <div role="button" onClick={() => createNewExam()} id="new-exam-button">
           Nouvel Examen
         </div>
 

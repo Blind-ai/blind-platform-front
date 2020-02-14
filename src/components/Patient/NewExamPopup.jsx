@@ -7,6 +7,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 import api from '../../utils/api'
 
+// eslint-disable no-alert
+/* eslint-disable-next-line react/no-unescaped-entities */
+
+
 
 const dropzoneStyle = {
     width  : "20%",
@@ -66,19 +70,19 @@ const NewExamPopup = ({id, closeCallback, onUpload}) => {
           </div>
         </div>
         <div id="popup-row">
-        <Dropzone
-          style={dropzoneStyle}
-          onDrop={acceptedFile => {
+          <Dropzone
+            style={dropzoneStyle}
+            onDrop={acceptedFile => {
           upload(acceptedFile)
         }}
-        >
-          {({getRootProps, getInputProps}) => (
-            <div id="dropzone" {...getRootProps()}>
-              <input id="drop-zone-input" {...getInputProps()} />
-              <p>Drag 'n' drop some files here, or click to select files</p>
-            </div>
+          >
+            {({getRootProps, getInputProps}) => (
+              <div id="dropzone" {...getRootProps()}>
+                <input id="drop-zone-input" {...getInputProps()} />
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              </div>
         )}
-        </Dropzone>
+          </Dropzone>
         </div>
       </Modal.Body>
     </Modal>

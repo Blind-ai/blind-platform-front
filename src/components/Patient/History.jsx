@@ -6,6 +6,7 @@ const History = ({history}) => {
     if (history.length === 0)
       return <div className="info-data">Vide</div>
     return history.map((element, id) => (
+      // eslint-disable-next-line react/no-array-index-key
       <div id="personnalInfos-container" key={id}>
         <div id="personal-infos-row">
           <div id="info-container">

@@ -18,13 +18,14 @@ const Exams = ({id, exams}) => {
             const imageUrl = `http://188.166.53.41:5000/${  id  }/${  attachment}`;
 
             return (
+              // eslint-disable-next-line react/no-array-index-key
               <div key={index} id="exam-row">
                 <div id="exam-info">{type}</div>
                 <div>{date}</div>
                 <div>{doctor}</div>
-                  <div style={{maxWidth: "300px"}}>
-                      <ModalImage small={imageUrl} large={imageUrl} alt={`Exam ${  date}`} />
-                  </div>
+                <div style={{maxWidth: "300px"}}>
+                  <ModalImage small={imageUrl} large={imageUrl} alt={`Exam ${  date}`} />
+                </div>
               </div>
             )
         })

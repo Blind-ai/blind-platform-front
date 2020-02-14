@@ -36,7 +36,6 @@ const PatientsSearchResults = ({patients, searchTag}) => {
     function renderTableData() {
         if (searchTag) {
             const filteredPatients = filterPatients();
-            console.log(filteredPatients)
 
             return filteredPatients.map((patient, index) => {
                 const {_id, firstname, lastname} = patient;

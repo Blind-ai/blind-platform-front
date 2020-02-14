@@ -1,6 +1,9 @@
 import React from "react";
 import './PatientsExamResults.css';
 
+// eslint-disable-next-line react/destructuring-assignment
+
+
 class PatientExamResults extends React.Component{
     constructor(props) {
         super(props);
@@ -18,17 +21,15 @@ class PatientExamResults extends React.Component{
         }
     }
 
+    // eslint-disable-next-line react/no-deprecated
     async componentWillReceiveProps(nextProps) {
-
-        console.log(nextProps)
         await this.setState({searchTag: nextProps.searchTag});
-        console.log(this.state.searchTag)
     }
 
     renderTableData() {
         if (this.state.searchTag) {
 
-            const filter = this.state.searchTag
+            const {filter} = this.state.searchTag
 
             const filtered = this.state.patients.filter((patient) => {
                 return (patient.name.toLowerCase().includes(filter.toLowerCase()))
@@ -48,7 +49,7 @@ class PatientExamResults extends React.Component{
                 )
             })
         }
-
+        return null
     }
 
     render() {
