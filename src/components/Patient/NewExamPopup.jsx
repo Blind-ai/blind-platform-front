@@ -22,11 +22,11 @@ const dropzoneStyle = {
 
 const options = [
     {
-        value: 'Anomalie Pulmonaire',
+        value: '2',
         label: 'Anomalie Pulmonaire',
     },
     {
-        value: 'Anomalie cutanee',
+        value: '1',
         label: 'Anomalie cutanee',
     }
     ];
@@ -42,9 +42,7 @@ const NewExamPopup = ({id, closeCallback, onUpload}) => {
       return alert("Missing params")
 
     const response = await api.uploadImage(file[0], id, examType, doctorName);
-
     alert("Successfully uploaded file");
-
     return onUpload(response)
   }
 
@@ -61,6 +59,7 @@ const NewExamPopup = ({id, closeCallback, onUpload}) => {
       <Modal.Body>
         <div id="popup-content">
           <div id='popup-row'>
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             <p> Type d'examen</p>
             <Select id="popup-row-select" options={options} onChange={selectedOption => setExamType(selectedOption.value)} />
           </div>

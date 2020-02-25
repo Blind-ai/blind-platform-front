@@ -1,0 +1,71 @@
+#title-container {
+  margin-top: 50px;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  font-family: Avenir-Light;
+  text-align: center;
+}
+
+#exam-result-container {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  display:flex;
+}
+
+#middle-container {
+  margin-top: 50px;
+  justify-content: center;
+  width: 50%;
+  flex-direction: row;
+  display:flex;
+}
+
+#infos-container {
+  margin-left: 30px;
+  display: flex;
+  font-family: Avenir-Light;
+  font-size: 20px;
+  background-color: #eeeeee;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px;
+  width: 50%;
+}
+
+#result-container-alert {
+  margin-top: 50px;
+  display: flex;
+  font-size: 20px;
+  background-color: #c4c4c4;
+  flex-direction: column;
+  padding: 20px;
+  font-family: Avenir-Light;
+
+  width: 50%;
+  border: 3px solid red;
+}
+
+#result-infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+#result-container {
+  width: 50%;
+  margin-top: 50px;
+  display: flex;
+  text-align: center;
+  font-size: 20px;
+  background-color: #c4c4c4;
+  flex-direction: column;
+  padding: 20px;
+  font-family: Avenir-Light;
+}
+
+
+

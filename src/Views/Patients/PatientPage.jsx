@@ -75,7 +75,7 @@ const PatientPage = ({location}) => {
                 return null;
             case 4 :
                 if (elements[3].isOpen)
-                    return  <Exams exams={infos.examinations} id={infos._id} />;
+                    return  <Exams exams={infos.examinations} id={infos._id} patientInfos={infos}/>;
                 return null;
             default : return null
         }
