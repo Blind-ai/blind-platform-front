@@ -6,9 +6,10 @@ import api from '../../utils/api';
 const ExamResult  = ({location}) => {
   const {infos, patientId, patientData} = location.state;
   const imageUrl = `${api.localIp  }/${ patientId  }/${   infos.attachment}`;
+  const date = new Date(infos.date);
 
   const renderAlert = () => {
-    const percentage = infos.diagnostic * 100;
+    const percentage = (infos.diagnostic * 100).toFixed(2);
 
     if (percentage > 60) {
       return (
@@ -16,7 +17,7 @@ const ExamResult  = ({location}) => {
           <p style={{color: 'red'}}>Attention</p>
           <div id="result-infos">
             <p>Anomalie Détectée</p>
-            <p>{`Probabilité : ${  percentage}`}</p>
+            <p>{`Probabilité : ${  percentage} %`}</p>
           </div>
         </div>
       )
@@ -44,11 +45,9 @@ const ExamResult  = ({location}) => {
         <div id="infos-container">
           <p><b>{`Patient : ${  patientData.firstname  } ${  patientData.lastname}`}</b></p>
           <p><b>{`ID : ${  patientId}`}</b></p>
-          <p><b>{`Date : ${  infos.date}`}</b></p>
+          <p><b>{`Date : ${  date.getDay()}-${date.getMonth() + 1}-${date.getFullYear()}`}</b></p>
           <p><b>{`Examinateur : ${  infos.doctor}`}</b></p>
         </div>
-
-
       </div>
 
       {renderAlert()}

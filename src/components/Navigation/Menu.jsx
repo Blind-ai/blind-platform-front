@@ -18,13 +18,13 @@ const Menu = () => {
         <div id="container">
           <div id="top-container">
             <img alt="" src={logo} />
-            <div id="header">
+            <div id="header-no-logo">
               <Account name="Dr. Girafon" />
             </div>
           </div>
           <div id="lower-container">
             <div id="sidebar">
-              <div id="menu-container">
+              <div id="sidebar-elements">
                 <a href='/'>Accueil</a>
                 <hr />
                 <a href="/patients">Patients</a>
@@ -36,13 +36,15 @@ const Menu = () => {
                 <a href="/">Donnez votre avis !</a>
               </div>
             </div>
-            <Switch>
-              <Route path="/" exact><h2>Welcome</h2></Route>
-              <Route path="/patients" component={SearchPatients} />
-              <Route path="/exams" component={SearchExams} />
-              <Route path="/patient/:id" component={PatientPage} />
-              <Route path="/exam/:id" component={ExamResult} />
-            </Switch>
+            <div id="content-container">
+              <Switch>
+                <Route path="/" exact><h2>Welcome</h2></Route>
+                <Route path="/patients" component={SearchPatients} />
+                <Route path="/exams" component={SearchExams} />
+                <Route path="/patient/:id" component={PatientPage} />
+                <Route path="/exam/:id" component={ExamResult} />
+              </Switch>
+            </div>
           </div>
         </div>
       </Router>
