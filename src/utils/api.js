@@ -1,3 +1,4 @@
+import {fetchPatientsPending, fetchPatientsSuccess, fetchPatientsError} from './action'
 
 // This is temporary, id like to split the different apis wrappers
 

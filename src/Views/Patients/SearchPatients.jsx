@@ -4,6 +4,7 @@ import './SearchPatients.css'
 import searchlogo from '../../assets/search.svg'
 import PatientsSearchResults from "../../components/Search/PatientsSearchResults";
 
+
 const SearchPatients = () => {
   const [patients, setPatients] = useState([]);
   const [searchTag, setSearchTag] = useState('');
