@@ -1,21 +1,20 @@
-import React, {useState, useEffect} from "react";
-import { useSelector, useDispatch} from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import api from '../../utils/api';
 import './SearchPatients.css'
 import searchlogo from '../../assets/search.svg'
 import PatientsSearchResults from "../../components/Search/PatientsSearchResults";
-import {getPatients} from '../../store/actions';
+import { getPatients } from '../../store/actions';
 
 
 const SearchPatients = () => {
-  const [patients, setPatients] = useState([]);
   const [searchTag, setSearchTag] = useState('');
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    useDispatch(getPatients());
+    dispatch(getPatients());
+  }, [dispatch]);
 
-  }, []);
   const resp = useSelector((store) => store.patientsReducer);
 
   return (
@@ -25,10 +24,10 @@ const SearchPatients = () => {
         <img alt="" src={searchlogo} />
       </div>
       <div id="results-container">
-        <PatientsSearchResults searchTag={searchTag} patients={patients} />
+        <PatientsSearchResults searchTag={searchTag} patients={resp.patients} />
       </div>
     </div>
-    )
+  )
 };
 
 export default SearchPatients;

@@ -10,9 +10,9 @@ module.exports = {
         data.append('attachment', file);
         data.append('name', type);
         data.append('doctor', doctor);
-        return fetch(`${localIp  }/patient/${  patientId  }/examination`, {
+        return fetch(`${localIp}/patient/${patientId}/examination`, {
             method: 'POST',
-            body : data
+            body: data
         }).then((response) => {
             return response.json();
         })
@@ -21,8 +21,9 @@ module.exports = {
             })
     },
     async getPatients() {
-        return fetch( `${localIp  }/patient`, {}
-        )
+        const res = await fetch(`${ip}/patient`, {});
+        return res.json();
+
     },
     ip,
     localIp,

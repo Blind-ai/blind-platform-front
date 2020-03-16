@@ -1,4 +1,4 @@
-import {createActionThunk} from 'redux-thunk-actions';
+import { createActionThunk } from 'redux-thunk-actions';
 import api from '../../utils/api';
 import {
   GET_PATIENTS
