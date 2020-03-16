@@ -1,17 +1,17 @@
 import React from 'react';
 import './App.css';
-import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './rootReducer';
+import { Provider } from 'react-redux';
+import store from './store';
 
 
 import Menu from "./components/Navigation/Menu";
 
-function App() {
+const App = () => {
   return (
-    <Menu />
-
+    <Provider store={store}>
+      <Menu />
+    </Provider>
   );
-}
+};
 
 export default App;

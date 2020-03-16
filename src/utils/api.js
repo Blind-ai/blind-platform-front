@@ -1,5 +1,3 @@
-import {fetchPatientsPending, fetchPatientsSuccess, fetchPatientsError} from './action'
-
 // This is temporary, id like to split the different apis wrappers
 
 const localIp = "http://127.0.0.1:5000";
@@ -22,11 +20,9 @@ module.exports = {
                 console.error(e);
             })
     },
-    getPatients() {
-        return fetch( `${localIp  }/patient`, {})
-            .then((response) => {
-                return response.json()
-            })
+    async getPatients() {
+        return fetch( `${localIp  }/patient`, {}
+        )
     },
     ip,
     localIp,
