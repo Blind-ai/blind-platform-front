@@ -75,7 +75,7 @@ const PatientPage = ({location}) => {
                 return null;
             case 4 :
                 if (elements[3].isOpen)
-                    return  <Exams exams={infos.examinations} id={infos._id} patientInfos={infos}/>;
+                    return  <Exams exams={infos.examinations} id={infos._id} patientInfos={infos} />;
                 return null;
             default : return null
         }
@@ -101,10 +101,9 @@ const PatientPage = ({location}) => {
             </div>
               ))}
         </div>
-        <div role="button" onClick={() => createNewExam()} id="new-exam-button">
+        <div tabIndex={0} role="button" onClick={() => createNewExam()} id="new-exam-button">
           Nouvel Examen
         </div>
-
         {isPopupOpen ? <NewExamPopup onUpload={onImageUploadCallback} id={infos._id} closeCallback={closeCallback} /> : null}
       </div>
     )

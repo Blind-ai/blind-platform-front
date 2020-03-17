@@ -3,11 +3,12 @@ import './Account.css'
 import pp from '../../assets/jimi.jpg'
 
 function Account(props) {
+  const {name} = props;
     return (
-      <a id="account-text">
-        {props.name}
-        <img src={pp} />
-      </a>
+      <p id="account-text">
+        {name}
+        <img alt="" src={pp} />
+      </p>
     )
 
 }

@@ -8,7 +8,9 @@ import Button from 'react-bootstrap/Button'
 import api from '../../utils/api'
 
 // eslint-disable no-alert
-/* eslint-disable-next-line react/no-unescaped-entities */
+/* eslint-disable react/no-unescaped-entities */
+// eslint-disable react/jsx-props-no-spreading
+
 
 
 
@@ -31,6 +33,7 @@ const options = [
     }
     ];
 
+const buttonText = "Drag 'n' drop some files here, or click to select files}";
 
 const NewExamPopup = ({id, closeCallback, onUpload}) => {
   const [examType, setExamType] = useState('');
@@ -78,7 +81,7 @@ const NewExamPopup = ({id, closeCallback, onUpload}) => {
             {({getRootProps, getInputProps}) => (
               <div id="dropzone" {...getRootProps()}>
                 <input id="drop-zone-input" {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
+                <p>{buttonText}</p>
               </div>
         )}
           </Dropzone>

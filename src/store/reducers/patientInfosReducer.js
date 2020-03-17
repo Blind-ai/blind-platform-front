@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions'
-import { GET_PATIENTS } from './patientsReducer';
 
 const initialState = {
   infos: [],

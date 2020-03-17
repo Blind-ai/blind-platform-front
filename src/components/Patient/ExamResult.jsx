@@ -25,7 +25,7 @@ const ExamResult  = ({location}) => {
     return (
       <div id="result-container">
         <div id="result-infos">
-          <p>Pas d'anomalie détectée</p>
+          <p>Pas d&#39;anomalie détectée</p>
           <p>{`Probabilité : ${  percentage}`}</p>
         </div>
       </div>

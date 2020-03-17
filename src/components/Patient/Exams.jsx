@@ -28,14 +28,13 @@ const Exams = ({id, exams, patientInfos}) => {
 
     const renderExamType = (type) => {
         const numType = parseInt(type, 10);
-        console.log(numType)
         switch (numType) {
             case 1 :
                 return "Peau";
             case 2 : return "Radio des pounons";
             default : return "NO TYPE";
         }
-    }
+    };
 
     const renderExams= () => {
         if (examsList.length === 0) {
@@ -44,12 +43,11 @@ const Exams = ({id, exams, patientInfos}) => {
         return examsList.map((exam, index) => {
             const {type, date, doctor, attachment} = exam;
             const imageUrl = `${api.localIp  }/${  id  }/${   attachment}`;
-            console.log(exam)
 
             return (
               // eslint-disable-next-line react/no-array-index-key
               <div key={index} id="exam-row">
-                <div id="exam-clickable" onClick={() => navigateToResult(exam)}>
+                <div role="button" tabIndex={0} id="exam-clickable" onKeyDown={navigateToResult} onClick={() => navigateToResult(exam)}>
                   <div id="exam-info">{renderExamType(type)}</div>
                   <div>{date}</div>
                   <div>{doctor}</div>

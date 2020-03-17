@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import api from '../../utils/api';
 import './SearchPatients.css'
 import searchlogo from '../../assets/search.svg'
 import PatientsSearchResults from "../../components/Search/PatientsSearchResults";
